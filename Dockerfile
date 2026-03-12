@@ -8,9 +8,6 @@ COPY package.json package-lock.json* ./
 # Install dependencies
 RUN npm install
 
-# Install Playwright browsers (mandatory)
-RUN npx playwright install --with-deps chromium
-
 # Copy rest of the code
 COPY . .
 
