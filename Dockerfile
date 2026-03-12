@@ -1,23 +1,20 @@
-# Use official Playwright image with latest dependencies
+# Use latest Playwright image with browsers pre-installed
 FROM mcr.microsoft.com/playwright:v1.58.2-jammy
 
 # Set working directory
 WORKDIR /app
 
-# Copy package.json and package-lock.json
+# Copy package.json and package-lock.json first
 COPY package*.json ./
 
 # Install Node.js dependencies
 RUN npm install
 
-# Copy the rest of your code
+# Copy all the scraper code
 COPY . .
 
-# Optional: expose a port if needed (not needed for worker)
-# EXPOSE 3000
+# Optional: environment variable to avoid downloading browsers again
+ENV PLAYWRIGHT_BROWSERS_PATH=0
 
-# Environment variable (you can override in Render)
-ENV NODE_ENV=production
-
-# Start your scraper
+# Start the scraper
 CMD ["node", "scraper.js"]
