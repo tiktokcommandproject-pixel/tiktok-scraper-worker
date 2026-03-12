@@ -1,6 +1,4 @@
-# Use Node official image
-FROM node:22
-
+FROM mcr.microsoft.com/playwright:v1.58.2-jammy
 # Set working directory
 WORKDIR /app
 
