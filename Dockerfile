@@ -1,20 +1,23 @@
-# Use the official Playwright Docker image with all browsers
-FROM mcr.microsoft.com/playwright:v1.58.2-jammy
+# Use Node official image
+FROM node:22
 
 # Set working directory
 WORKDIR /app
 
-# Copy package.json and package-lock.json first (for caching)
-COPY package*.json ./
+# Copy package files first (speeds up rebuilds)
+COPY package.json package-lock.json* ./
 
-# Install Node dependencies
+# Install dependencies
 RUN npm install
 
-# Copy all the code
+# Install Playwright browsers (mandatory)
+RUN npx playwright install --with-deps chromium
+
+# Copy rest of the code
 COPY . .
 
-# Set environment variable for Playwright to use bundled browsers
+# Environment variable to make Playwright use bundled browsers
 ENV PLAYWRIGHT_BROWSERS_PATH=0
 
-# Default command
+# Start the scraper
 CMD ["node", "scraper.js"]
