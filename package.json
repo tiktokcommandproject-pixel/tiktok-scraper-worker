@@ -1,0 +1,10 @@
+{
+  "name": "tiktok-scraper-worker",
+  "version": "1.0.0",
+  "scripts": {
+    "start": "node scraper.js"
+  },
+  "dependencies": {
+    "playwright": "^1.40.0"
+  }
+}
